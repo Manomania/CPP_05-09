@@ -1,7 +1,6 @@
 #include "Form.hpp"
 
 Form::Form(): _name("default"), _isItSigned("false"), _signGrade(150), _constGrade(150) {
-
 }
 
 Form::Form(const std::string& name, size_t signGrade, size_t constGrade): _name(name), _isItSigned(false), _signGrade(signGrade), _constGrade(constGrade) {
@@ -12,17 +11,14 @@ Form::Form(const std::string& name, size_t signGrade, size_t constGrade): _name(
 }
 
 Form::Form(const Form& copy): _name(copy._name), _isItSigned(copy._isItSigned), _signGrade(copy._signGrade), _constGrade(copy._constGrade) {
-
 }
 
 Form::~Form() {
-
 }
 
 Form& Form::operator=(const Form& other) {
-	if (this == &other)
-		return (*this);
-	this->_isItSigned = other._isItSigned;
+	if (this != &other)
+		this->_isItSigned = other._isItSigned;
 	return (*this);
 }
 
@@ -45,7 +41,7 @@ size_t Form::getConstGrade() const {
 void Form::beSigned(const Bureaucrat& bc) {
 	if (bc.getGrade() > this->_signGrade)
 		throw GradeTooLowException();
-	else if (this->_isItSigned == true)
+	else if (this->_isItSigned)
 		std::cout << bc.getName() << " wont sign the form " << this->getName() << " because it is already signed" << std::endl;
 	else {
 		this->_isItSigned = true;

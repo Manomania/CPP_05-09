@@ -26,7 +26,7 @@ public:
 	Bureaucrat(const std::string& name, size_t grade);
 	Bureaucrat(const Bureaucrat& copy);
 	~Bureaucrat();
-	Bureaucrat& operator=(const Bureaucrat& pther);
+	Bureaucrat& operator=(const Bureaucrat& other);
 	const std::string& getName() const;
 	size_t getGrade() const;
 	void incrementGrade();

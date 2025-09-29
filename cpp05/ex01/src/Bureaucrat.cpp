@@ -4,7 +4,6 @@ Bureaucrat::Bureaucrat(): _name("default"), _grade(150) {
 
 }
 
-
 Bureaucrat::Bureaucrat(const std::string& name, size_t grade): _name(name), _grade(grade) {
 	if (grade < 1)
 		throw GradeTooHighException();
@@ -19,9 +18,8 @@ Bureaucrat::Bureaucrat(const Bureaucrat& copy): _name(copy._name), _grade(copy._
 }
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& copy) {
-	if (this == &copy)
-		return (*this);
-	this->_grade = copy._grade;
+	if (this != &copy)
+		this->_grade = copy._grade;
 	return (*this);
 }
 
@@ -38,7 +36,6 @@ void Bureaucrat::incrementGrade() {
 		throw GradeTooHighException();
 	else
 		this->_grade--;
-
 }
 
 void Bureaucrat::decrementGrade() {

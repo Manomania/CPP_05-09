@@ -123,7 +123,6 @@ void testGradeModifications() {
 
 void testComplexScenarios() {
 	std::cout << CYAN BOLD"=== COMPLEX SCENARIOS ===" RESET << std::endl;
-
 	try {
 		Bureaucrat chef("Chef", 25);
 		Bureaucrat stagiaire("Stagiaire", 100);
