@@ -5,7 +5,6 @@ ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target): AForm("
 }
 
 ShrubberyCreationForm::~ShrubberyCreationForm() {
-
 }
 
 void ShrubberyCreationForm::execute(Bureaucrat const& executor) const {
