@@ -4,7 +4,6 @@
 #include "ShrubberyCreationForm.hpp"
 
 Intern::Intern() {
-
 }
 
 Intern::Intern(const Intern& copy) {
@@ -12,13 +11,6 @@ Intern::Intern(const Intern& copy) {
 }
 
 Intern::~Intern() {
-
-}
-
-Intern& Intern::operator=(const Intern& other) {
-	if (this == &other)
-		return (*this);
-	return (*this);
 }
 
 static AForm* createPresidentialPardon(const std::string& target) {
@@ -42,7 +34,6 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 	createPresidentialPardon,
 	createRobotomyRequest,
 	createShrubberyCreation};
-
 	for (int i = 0; i < 3; i++) {
 		if (formName == formNames[i]) {
 			std::cout << "Intern creates " << formName << std::endl;

@@ -5,7 +5,6 @@ RobotomyRequestForm::RobotomyRequestForm(const std::string& target): AForm("Robo
 }
 
 RobotomyRequestForm::~RobotomyRequestForm() {
-
 }
 
 void RobotomyRequestForm::execute(Bureaucrat const& executor) const {

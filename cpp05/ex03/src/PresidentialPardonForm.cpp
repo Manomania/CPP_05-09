@@ -5,7 +5,6 @@ PresidentialPardonForm::PresidentialPardonForm(const std::string& target): AForm
 }
 
 PresidentialPardonForm::~PresidentialPardonForm() {
-
 }
 
 void PresidentialPardonForm::execute(Bureaucrat const& executor) const {
