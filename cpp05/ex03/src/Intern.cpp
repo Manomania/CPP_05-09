@@ -40,6 +40,5 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& target) 
 			return (formCreator[i](target));
 		}
 	}
-	std::cout << "Intern cannot create the form" << std::endl;
-	return (NULL);
+	throw FormNotFoundException();
 }

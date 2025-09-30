@@ -53,6 +53,6 @@ std::ostream& operator<<(std::ostream& os, const Form& fm) {
 	os << "Form : " << fm.getName() << "\n";
 	os << "Is it signed: " << fm.getIsItSigned() << "\n";
 	os << "Grade needed to be signed: " << fm.getSignGrade() << "\n";
-	os << "Grade needed to be executed: " << fm.getConstGrade() << std::endl;;
+	os << "Grade needed to be executed: " << fm.getConstGrade() << std::endl;
 	return (os);
 }

@@ -19,19 +19,23 @@ int main() {
 	std::cout << GREEN BOLD "=== TEST CREATION ===" RESET << std::endl;
 	Intern someRandomIntern;
 	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
-	if (rrf) {
+	try {
+		rrf = someRandomIntern.makeForm("robotomy request", "Bender");
 		std::cout << *rrf << std::endl;
 		delete rrf;
+	} catch (std::exception& e) {
+		std::cout << "Error: " << e.what() << std::endl;
 	}
-	rrf = someRandomIntern.makeForm("presidential pardon", "Richard");
-	Bureaucrat Albert("Albert", 1);
-	Albert.executeForm(*rrf);
-	Albert.signForm(*rrf);
-	Albert.executeForm(*rrf);
-	if (rrf) {
+	try {
+		rrf = someRandomIntern.makeForm("presidential pardon", "Richard");
 		std::cout << *rrf << std::endl;
+		Bureaucrat Albert("Albert", 1);
+		Albert.executeForm(*rrf);
+		Albert.signForm(*rrf);
+		Albert.executeForm(*rrf);
 		delete rrf;
+	} catch (std::exception& e) {
+		std::cout << "Error: " << e.what() << std::endl;
 	}
 	return (0);
 }
