@@ -46,24 +46,36 @@ float extractFloat(const std::string& string) {
 	return (static_cast<float>(std::atof(string.c_str())));
 }
 
+double extractFLoatSpecial(const std::string& string) {
+	return (std::atof(string.c_str()));
+}
+
 double extractDouble(const std::string& string) {
 	return (std::atof(string.c_str()));
 }
 
+double extractDoubleSpecial(const std::string& string) {
+	return (std::atof(string.c_str()));
+}
 
 void ScalarConverter::convert(const std::string& string) {
+	bool	charValid = false;
+	bool	intValid = false;
+	bool	floatValid = false;
+	bool	doubleValid = false;
+	bool	floatSpValid = false;
+	bool	doubleSpValid = false;
 
 	if (isChar(string))
-		std::cout << "isChar" << std::endl;
+		charValid = true;
 	else if (isFloat(string))
-		std::cout << "isFloat" << std::endl;
+		floatValid = true;
 	else if (isDouble(string))
-		std::cout << "isDouble" << std::endl;
+		doubleValid = true;
 	else if (isFloatSpecial(string))
-		std::cout << "isFloatSpecial" << std::endl;
+		floatSpValid = true;
 	else if (isDoubleSpecial(string))
-		std::cout << "isDoubleSpecial" << std::endl;
+		doubleSpValid = true;
 	else if (isInt(string))
-		std::cout << "isInt" << std::endl;
-};
-
+		intValid = true;
+}
