@@ -1,78 +1,120 @@
 #include "ScalarConverter.hpp"
 
-void ScalarConverter::displayChar(const std::string& string) {
-	char convert = std::atoi(string.c_str());
-	bool isSpecial = false;
+bool ScalarConverter::isCharLiteral(const std::string& string){
+	return (string.length() == 3 && string[0] == '\'' && string[2] == '\'');
+}
+
+bool ScalarConverter::isIntLiteral(const std::string& string){
+	if (string.empty())
+		return (false);
+	size_t start = 0;
+	if (string[0] == '+' || string[0] == '-') {
+		start = 1;
+		if (string.length() == 1)
+			return false;
+	}
+	for (size_t i = start; i < string.length(); i++) {
+		if (!std::isdigit(static_cast<unsigned char>(string[i])))
+			return false;
+	}
+	if (string.find('.') != std::string::npos)
+		return false;
+	return (true);
+}
+
+bool ScalarConverter::isFloatLiteral(const std::string& string){
+	if (string.empty() || string[string.length() - 1] != 'f')
+		return (false);
+	return (string.find('.') != std::string::npos);
+}
+
+bool ScalarConverter::isSpecialLiteral(const std::string& string){
+	return (string == "-inff" || string == "-inf" || string == "+inff" || string == "+inf" || string == "nanf" || string == "nan");
+}
+
+ScalarConverter::LiteralType ScalarConverter::detectType(const std::string& string) {
+	if (isCharLiteral(string))
+		return (CHAR);
+	if (isSpecialLiteral(string))
+		return (SPECIAL);
+	if (isFloatLiteral(string))
+		return (FLOAT);
+	if (string.find('.') != std::string::npos)
+		return (DOUBLE);
+	if (isIntLiteral(string))
+		return (INT);
+	return (INVALID);
+}
+
+void ScalarConverter::printChar(double value, bool impossible) {
 	std::cout << "char: ";
-	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i]) && string[i] != '.') {
-			isSpecial = true;
-			break;
-		}
-	}
-	if (!isSpecial && convert >= 32 && convert <= 126)
-		std::cout << "'" << convert << "'" << std::endl;
-	else if (!isSpecial && ((convert >= 0 && convert < 32) || (convert > 126 && convert <= 127)))
-		std::cout << "non displayable" << std::endl;
-	else
+	if (impossible || value < 0 || value > 127) {
 		std::cout << "impossible" << std::endl;
+		return;
+	}
+	int charValue = static_cast<int>(value);
+	if (charValue < 32 || charValue == 127) {
+		std::cout << "Non displayable" << std::endl;
+		return;
+	}
+	std::cout << "'" << static_cast<char>(charValue) << "'" << std::endl;
 }
 
-void ScalarConverter::displayInt(const std::string& string) {
-	long convert = std::atol(string.c_str());
-	bool isSpecial = false;
+void ScalarConverter::printInt(double value, bool impossible) {
 	std::cout << "int: ";
-	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i]) && string[i] != '.') {
-			isSpecial = true;
-			break;
-		}
-	}
-	if (!isSpecial && convert >= INT_MIN && convert <= INT_MAX)
-		std::cout << convert << std::endl;
-	else
+	if (impossible || value < INT_MIN || value > INT_MAX) {
 		std::cout << "impossible" << std::endl;
+		return;
+	}
+	std::cout << static_cast<int>(value) << std::endl;
 }
 
-void ScalarConverter::displayFloat(const std::string& string) {
-	double convert = std::atof(string.c_str());
-	bool isSpecial = false;
+void ScalarConverter::printFloat(double value, bool isPseudo) {
 	std::cout << "float: ";
-	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i]) && string[i] != '.') {
-			isSpecial = true;
-			break;
-		}
+	if (isPseudo) {
+		std::cout << static_cast<float>(value) << "f" << std::endl;
+		return;
 	}
-	if (!isSpecial && convert >= INT_MIN && convert <= INT_MAX)
-		std::cout << std::fixed << std::setprecision(1) << convert << "f" << std::endl;
-	else if (string == "-inff" || string == "-inf" || string == "+inff" || string == "+inf" || string == "nanf" || string == "nan")
-		std::cout << convert << "f" << std::endl;
-	else
-		std::cout << "impossible" << std::endl;
+	std::cout << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f" << std::endl;
 }
 
-void ScalarConverter::displayDouble(const std::string& string) {
-	double convert = std::atof(string.c_str());
-	bool isSpecial = false;
+void ScalarConverter::printDouble(double value, bool isPseudo) {
 	std::cout << "double: ";
-	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i]) && string[i] != '.') {
-			isSpecial = true;
-			break;
-		}
+	if (isPseudo) {
+		std::cout << value << std::endl;
+		return;
 	}
-	if (!isSpecial && convert >= INT_MIN && convert <= INT_MAX)
-		std::cout << std::fixed << std::setprecision(1) << convert << std::endl;
-	else if (string == "-inff" || string == "-inf" || string == "+inff" || string == "+inf" || string == "nanf" || string == "nan")
-		std::cout << convert << std::endl;
-	else
-		std::cout << "impossible" << std::endl;
+	std::cout << std::fixed << std::setprecision(1) << value << std::endl;
 }
 
-void ScalarConverter::convert(const std::string& string) {
-	displayChar(string);
-	displayInt(string);
-	displayFloat(string);
-	displayDouble(string);
+void ScalarConverter::convert(const std::string& literal) {
+	LiteralType type = detectType(literal);
+	double value = 0.0;
+	bool isSpecial = false;
+	switch (type) {
+		case CHAR:
+			value = static_cast<double>(literal[1]);
+			break;
+		case INT:
+			value = static_cast<double>(std::atoi(literal.c_str()));
+			break;
+		case FLOAT:
+			value = std::atof(literal.c_str());
+			isSpecial = isSpecialLiteral(literal);
+			break;
+		case DOUBLE:
+			value = std::atof(literal.c_str());
+			isSpecial = isSpecialLiteral(literal);
+			break;
+		case SPECIAL:
+			value = std::atof(literal.c_str());
+			isSpecial = true;
+			break;
+		case INVALID:
+			break;
+	}
+	printChar(value, isSpecial);
+	printInt(value, isSpecial);
+	printFloat(value, isSpecial);
+	printDouble(value, isSpecial);
 }
