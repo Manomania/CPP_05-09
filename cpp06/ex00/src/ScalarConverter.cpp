@@ -5,7 +5,7 @@ void ScalarConverter::displayChar(const std::string& string) {
 	bool isSpecial = false;
 	std::cout << "char: ";
 	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i])) {
+		if (!isdigit(string[i]) && string[i] != '.') {
 			isSpecial = true;
 			break;
 		}
@@ -23,7 +23,7 @@ void ScalarConverter::displayInt(const std::string& string) {
 	bool isSpecial = false;
 	std::cout << "int: ";
 	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i])) {
+		if (!isdigit(string[i]) && string[i] != '.') {
 			isSpecial = true;
 			break;
 		}
@@ -39,15 +39,17 @@ void ScalarConverter::displayFloat(const std::string& string) {
 	bool isSpecial = false;
 	std::cout << "float: ";
 	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i])) {
+		if (!isdigit(string[i]) && string[i] != '.') {
 			isSpecial = true;
 			break;
 		}
 	}
 	if (!isSpecial && convert >= INT_MIN && convert <= INT_MAX)
 		std::cout << std::fixed << std::setprecision(1) << convert << "f" << std::endl;
+	else if (string == "-inff" || string == "-inf" || string == "+inff" || string == "+inf" || string == "nanf" || string == "nan")
+		std::cout << convert << "f" << std::endl;
 	else
-		std::cout << convert  << "f" << std::endl;
+		std::cout << "impossible" << std::endl;
 }
 
 void ScalarConverter::displayDouble(const std::string& string) {
@@ -55,15 +57,17 @@ void ScalarConverter::displayDouble(const std::string& string) {
 	bool isSpecial = false;
 	std::cout << "double: ";
 	for (unsigned long i = 0; i < string.length() - 1; i++) {
-		if (!isdigit(string[i])) {
+		if (!isdigit(string[i]) && string[i] != '.') {
 			isSpecial = true;
 			break;
 		}
 	}
 	if (!isSpecial && convert >= INT_MIN && convert <= INT_MAX)
 		std::cout << std::fixed << std::setprecision(1) << convert << std::endl;
-	else
+	else if (string == "-inff" || string == "-inf" || string == "+inff" || string == "+inf" || string == "nanf" || string == "nan")
 		std::cout << convert << std::endl;
+	else
+		std::cout << "impossible" << std::endl;
 }
 
 void ScalarConverter::convert(const std::string& string) {
