@@ -25,7 +25,7 @@ private:
 	static bool isFloatLiteral(const std::string& string);
 	static bool isDoubleLiteral(const std::string& string);
 	static bool isSpecialLiteral(const std::string& string);
-	static void printInvalid(void);
+	static void printInvalid();
 	static void printInt(double value, bool impossible);
 	static void printChar(double value, bool impossible);
 	static void printFloat(double value, bool impossible);
