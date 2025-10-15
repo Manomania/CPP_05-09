@@ -1,0 +1,53 @@
+#include <typeinfo>
+
+#include "Base.hpp"
+#include "A.hpp"
+#include "B.hpp"
+#include "C.hpp"
+
+Base* generate() {
+	srand(time(0));
+	int random = rand() % 3;
+	if (random == 0)
+		return new A;
+	else if (random == 1)
+		return new B;
+	else
+		return new C;
+}
+
+void identify(Base *p) {
+	if (dynamic_cast<A*>(p))
+		std::cout << "A" << std::endl;
+	else if (dynamic_cast<B*>(p))
+		std::cout << "B" << std::endl;
+	else if (dynamic_cast<C*>(p))
+		std::cout << "C" << std::endl;
+}
+
+void identify(Base &p) {
+	try {
+		Base& base = dynamic_cast<A&>(p);
+		(void)base;
+		std::cout << "A" << std::endl;
+	} catch (const std::bad_cast& e) {}
+	try {
+		Base& base = dynamic_cast<B&>(p);
+		(void)base;
+		std::cout << "B" << std::endl;
+	} catch (const std::bad_cast& e) {}
+	try {
+		Base& base = dynamic_cast<C&>(p);
+		(void)base;
+		std::cout << "C" << std::endl;
+	} catch (const std::bad_cast& e) {}
+}
+
+int main() {
+	Base* base = generate();
+	Base& base1 = *base;
+	identify(base);
+	identify(base1);
+	delete base;
+	return 0;
+}
