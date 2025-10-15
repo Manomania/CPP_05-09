@@ -111,7 +111,7 @@ void ScalarConverter::printDouble(double value, bool isSpecial) {
 	std::cout << std::fixed << std::setprecision(1) << value << std::endl;
 }
 
-void ScalarConverter::printInvalid(void) {
+void ScalarConverter::printInvalid() {
 	std::cout << "char: impossible\n" << "int: impossible\n"
 		<< "float: impossible\n" << "double: impossible" << std::endl;
 }
