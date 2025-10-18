@@ -6,11 +6,14 @@ void incrementChar(T &index) {
 	++index;
 }
 
+template<typename T>
+void readChar(T &c) {
+	std::cout << c;
+}
+
 int main() {
-	std::string array = "aBcDeF";
-	char array2[] = "AbCdEf";
-	iter(array2, 1, incrementChar);
-	std::cout << array << std::endl;
-	std::cout << array2 << std::endl;
+	char nonConstChar[] = "AbCdEfGhIjKlMn";
+	const char* constChar = "OpQrStUvWxYz";
+	::iter(nonConstChar, 10, incrementChar);
 	return 0;
 }
