@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Iter.hpp"
+#include "iter.hpp"
 
 void incrementChar(char &index) {
 	++index;
