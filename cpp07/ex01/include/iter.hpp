@@ -2,10 +2,8 @@
 #define ITER_HPP
 
 template<typename T, typename F>
-void iter(T* array, const int length, F function) {
-	if (length < 0)
-		return ;
-	for (int i = 0; i < length; i++) {
+void iter(T* array, const size_t length, F function) {
+	for (size_t i = 0; i < length; i++) {
 		function(array[i]);
 	}
 }
