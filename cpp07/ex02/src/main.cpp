@@ -5,7 +5,7 @@ class Test {
 public:
 	std::string data;
 	Test() {};
-	Test(std::string str): data(str){};
+	Test(const std::string& str): data(str){};
 	~Test() {};
 };
 std::ostream& operator<<(std::ostream& os, const Test& c) {
