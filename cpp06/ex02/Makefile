@@ -11,15 +11,12 @@ CFLAGS				+=	-std=c++98
 AR					:=	ar rcs
 RM					:=	rm -f
 
-SRC_F				=	Base	\
-						A		\
-						B		\
-						C		\
-						main
 HDR_F				=	Base	\
 						A		\
 						B		\
 						C
+SRC_F				=	Base	\
+						main
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))

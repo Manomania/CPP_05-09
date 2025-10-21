@@ -1,5 +1,4 @@
-#include <typeinfo>
-
+#include <exception>
 #include "Base.hpp"
 #include "A.hpp"
 #include "B.hpp"
@@ -30,17 +29,17 @@ void identify(Base &p) {
 		Base& base = dynamic_cast<A&>(p);
 		(void)base;
 		std::cout << "A" << std::endl;
-	} catch (const std::bad_cast& e) {}
+	} catch (const std::exception& e) {}
 	try {
 		Base& base = dynamic_cast<B&>(p);
 		(void)base;
 		std::cout << "B" << std::endl;
-	} catch (const std::bad_cast& e) {}
+	} catch (const std::exception& e) {}
 	try {
 		Base& base = dynamic_cast<C&>(p);
 		(void)base;
 		std::cout << "C" << std::endl;
-	} catch (const std::bad_cast& e) {}
+	} catch (const std::exception& e) {}
 }
 
 int main() {
