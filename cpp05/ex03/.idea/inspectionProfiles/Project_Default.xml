@@ -7,6 +7,5 @@
       <option name="FLAG_EXPLICIT_CONVERSION" value="true" />
       <option name="IGNORE_NODESET_TO_BOOLEAN_VIA_STRING" value="true" />
     </inspection_tool>
-    <inspection_tool class="ThemeInspection" enabled="false" level="WARNING" enabled_by_default="false" />
   </profile>
 </component>
