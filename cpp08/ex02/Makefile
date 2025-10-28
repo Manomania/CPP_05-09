@@ -11,8 +11,8 @@ CFLAGS				+=	-std=c++98
 AR					:=	ar rcs
 RM					:=	rm -f
 
-HDR_F				=
-SRC_F				=
+HDR_F				=	MutantStack
+SRC_F				=	main
 HDR					=	$(addprefix $(INC_DIR), $(addsuffix .hpp, $(HDR_F)))
 SRC					=	$(addprefix $(SRC_DIR), $(addsuffix .cpp, $(SRC_F)))
 OBJ 				=	$(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_F)))
