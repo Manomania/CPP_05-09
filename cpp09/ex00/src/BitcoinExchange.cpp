@@ -20,6 +20,8 @@ void BitcoinExchange::loadDatabase(const std::string& filename) {
 	}
 	std::string line;
 	while (std::getline(myFile, line)) {
+		if (line == "date,exchange_rate")
+			continue;
 		std::stringstream ss(line);
 		std::string date;
 		double rate = 0;
