@@ -11,10 +11,11 @@ private:
 	std::map<std::string, double> _exchange;
 public:
 	BitcoinExchange();
+	BitcoinExchange(const std::string& filename);
 	BitcoinExchange(const BitcoinExchange& copy);
 	BitcoinExchange& operator=(const BitcoinExchange& other);
 	~BitcoinExchange();
-	void loadDatabase(const std::string& filename);
+	void calculDataWithInput(const std::string& input);
 };
 
 #endif
