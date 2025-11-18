@@ -48,7 +48,7 @@ static bool checkDate(const std::string& date) {
 }
 
 static int checkNumber(const double number) {
-	if (number >= INT_MAX || number <= INT_MIN)
+	if (number >= INT_MAX)
 		return (1);
 	if (number < 0)
 		return (2);
