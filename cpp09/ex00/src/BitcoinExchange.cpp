@@ -2,6 +2,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <climits>
 #include <string>
 
 BitcoinExchange::BitcoinExchange() {}
@@ -37,28 +38,61 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other) {
 BitcoinExchange::~BitcoinExchange() {}
 
 static bool checkDate(const std::string& date) {
-	std::tm tm{};
-	int year = std::atoi(date.substr(0, 4).c_str());
-	tm.tm_year = date.substr(0, 4);
-	std::stringstream data(date);
-	int year;
-	data >> year;
-	if (year >= 2025)
-		return (false);
-	return (true);
+	std::stringstream ss(date);
+	int year, month, day;
+	char sep;
+	ss >> year >> sep >> month >> sep >> day;
+	if (year > 2025 || year <= 1900 || month < 1 || month > 12 || day < 1 || day > 31 )
+		return (true);
+	return (false);
+}
+
+static int checkNumber(const double number) {
+	if (number >= INT_MAX || number <= INT_MIN)
+		return (1);
+	if (number < 0)
+		return (2);
+	return (0);
 }
 
 void BitcoinExchange::calculDataWithInput(const std::string& input) {
 	std::ifstream myFile(input.c_str());
 	if (!myFile.is_open()) {
-		std::cerr << "Error: could not open input file: " << input << std::endl;
+		std::cerr << "Error: could not open file " << input << std::endl;
 		return ;
 	}
 	std::string line;
 	while (getline(myFile, line)) {
+		if (line == "date | value")
+			continue;
+		size_t pipePos = line.find(" | ");
+		if (pipePos == std::string::npos || pipePos < 10) {
+			std::cerr << "Error: bad input => " << line << std::endl;
+			continue;
+		}
 		std::string date = line.substr(0, 10);
-		if (checkDate(date))
-			return ;
-		std::cout << date << std::endl;
+		if (checkDate(date)) {
+			std::cerr << "Error: bad input => " << date << std::endl;
+			continue;
+		}
+		double number = std::atof(line.substr(pipePos + 3).c_str());
+		if (checkNumber(number) == 1) {
+			std::cerr << "Error: too large a number." << std::endl;
+			continue;
+		}
+		if (checkNumber(number) == 2) {
+			std::cerr << "Error: not a positive number." << std::endl;
+			continue;
+		}
+		std::map<std::string, double>::const_iterator it = _exchange.lower_bound(date);
+		if (it == _exchange.begin() || it->first != date) {
+			if (it == _exchange.end()) {
+				std::cerr << "Error: no exchange rate available for " << date << std::endl;
+				continue;
+				}
+			--it;
+		}
+		double result = number * it->second;
+		std::cout << date << " => " << number << " = " << result << std::endl;
 	}
 }
