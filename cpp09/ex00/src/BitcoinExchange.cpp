@@ -19,7 +19,7 @@ BitcoinExchange::BitcoinExchange(const std::string& filename) {
 			continue;
 		std::stringstream ss(line);
 		std::string date;
-		double rate = 0;
+		float rate = 0;
 		std::getline(ss, date, ',');
 		ss >> rate;
 		this->_exchange[date] = rate;
@@ -47,8 +47,8 @@ static bool checkDate(const std::string& date) {
 	return (false);
 }
 
-static bool checkNumber(const double number) {
-	if (number > INT_MAX) {
+static bool checkNumber(const float number) {
+	if (number > 1000) {
 		std::cerr << "Error: too large a number." << std::endl;
 		return (true);
 	}
@@ -86,10 +86,10 @@ void BitcoinExchange::calculDataWithInput(const std::string& input) {
 			std::cerr << "Error: bad input => " << date << std::endl;
 			continue;
 		}
-		double number = std::atof(line.substr(pipePos + 3).c_str());
+		float number = std::atof(line.substr(pipePos + 3).c_str());
 		if (checkNumber(number))
 			continue;
-		std::map<std::string, double>::const_iterator it = _exchange.lower_bound(date);
+		std::map<std::string, float>::const_iterator it = _exchange.lower_bound(date);
 		if (it == _exchange.begin() || it->first != date) {
 			if (it == _exchange.end()) {
 				std::cerr << "Error: no exchange rate available for " << date << std::endl;
@@ -97,7 +97,7 @@ void BitcoinExchange::calculDataWithInput(const std::string& input) {
 				}
 			--it;
 		}
-		double result = number * it->second;
+		float result = number * it->second;
 		std::cout << date << " => " << number << " = " << result << std::endl;
 	}
 }

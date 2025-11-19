@@ -8,7 +8,7 @@
 
 class BitcoinExchange {
 private:
-	std::map<std::string, double> _exchange;
+	std::map<std::string, float> _exchange;
 public:
 	BitcoinExchange();
 	BitcoinExchange(const std::string& filename);
