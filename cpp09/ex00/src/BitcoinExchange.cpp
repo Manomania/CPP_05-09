@@ -66,9 +66,16 @@ void BitcoinExchange::calculDataWithInput(const std::string& input) {
 		return ;
 	}
 	std::string line;
+	bool firstline = true;
 	while (getline(myFile, line)) {
-		if (line == "date | value")
+		if (line == "date | value") {
+			firstline = false;
 			continue;
+		}
+		if (firstline) {
+			std::cerr << "Error: invalid header in " << input << std::endl;
+			break;
+		}
 		size_t pipePos = line.find(" | ");
 		if (pipePos == std::string::npos || pipePos < 10) {
 			std::cerr << "Error: bad input => " << line << std::endl;
