@@ -47,12 +47,16 @@ static bool checkDate(const std::string& date) {
 	return (false);
 }
 
-static int checkNumber(const double number) {
-	if (number >= INT_MAX)
-		return (1);
-	if (number < 0)
-		return (2);
-	return (0);
+static bool checkNumber(const double number) {
+	if (number > INT_MAX) {
+		std::cerr << "Error: too large a number." << std::endl;
+		return (true);
+	}
+	if (number < 0) {
+		std::cerr << "Error: not a positive number." << std::endl;
+		return (true);
+	}
+	return (false);
 }
 
 void BitcoinExchange::calculDataWithInput(const std::string& input) {
@@ -76,14 +80,8 @@ void BitcoinExchange::calculDataWithInput(const std::string& input) {
 			continue;
 		}
 		double number = std::atof(line.substr(pipePos + 3).c_str());
-		if (checkNumber(number) == 1) {
-			std::cerr << "Error: too large a number." << std::endl;
+		if (checkNumber(number))
 			continue;
-		}
-		if (checkNumber(number) == 2) {
-			std::cerr << "Error: not a positive number." << std::endl;
-			continue;
-		}
 		std::map<std::string, double>::const_iterator it = _exchange.lower_bound(date);
 		if (it == _exchange.begin() || it->first != date) {
 			if (it == _exchange.end()) {
