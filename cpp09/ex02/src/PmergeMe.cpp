@@ -24,20 +24,6 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 
 PmergeMe::~PmergeMe() {}
 
-
-void	PmergeMe::setContainer(const std::string& src) {
-	std::vector<int> vec;
-	std::deque<int> deq;
-	std::stringstream ss(src);
-	int value;
-	while (ss >> value) {
-		vec.push_back(value);
-		deq.push_back(value);
-	}
-	setVector(vec);
-	setDeque(deq);
-}
-
 std::vector<int>&	PmergeMe::createPairVec(std::vector<int>& vec) {
 	size_t pairSize = vec.size() / 2;
 	if (pairSize % 2 == 1)
