@@ -3,7 +3,7 @@
 ########################################################################################################################
 
 AUTHOR				:=  maximart
-NAME				:=	RPN
+NAME				:=	PmergeMe
 HEADER				=	$(INC_DIR)
 CC 					:=	c++
 CFLAGS 				:=	-Wall -Wextra -Werror
