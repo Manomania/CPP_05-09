@@ -14,10 +14,11 @@ public:
 	PmergeMe(const PmergeMe& copy);
 	PmergeMe& operator=(const PmergeMe& other);
 	~PmergeMe();
-	//TODO optimize with templates
 	void	setVector(const std::vector<int>& vector);
 	void	setDeque(const std::deque<int>& deque);
-	std::vector<int>&	createPairVec(std::vector<int>& vec);
+	std::vector<int>&	createPairVec(std::vector<int>& vec, size_t& pairSize, size_t& countPair);
+	void				swapPairs(std::vector<int>& vec, size_t leftStart, size_t rightStart, size_t size);
+	std::vector<size_t> generateJacobsthalSequence(size_t size);
 };
 
 #endif

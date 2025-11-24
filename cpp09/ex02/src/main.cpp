@@ -25,5 +25,12 @@ int main(int argc, char** argv) {
 	}
 	data.setVector(vec);
 	data.setDeque(deq);
-	data.createPairVec(vec);
+	size_t countPair = vec.size();
+	size_t pairSize = 1;
+	data.createPairVec(vec, pairSize, countPair);
+	std::vector<int>::const_iterator it = vec.begin();
+	for (;it < vec.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
 }
