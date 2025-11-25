@@ -13,7 +13,6 @@ int main(int argc, char** argv) {
 			src += " ";
 	}
 	std::cout << "Before: " << src << std::endl;
-	std::cout<<std::endl;
 	PmergeMe data;
 	std::vector<int> vec;
 	std::deque<int> deq;
@@ -25,10 +24,11 @@ int main(int argc, char** argv) {
 	}
 	data.setVector(vec);
 	data.setDeque(deq);
-	size_t countPair = vec.size();
+	size_t vecSize = vec.size();
 	size_t pairSize = 1;
-	data.createPairVec(vec, pairSize, countPair);
+	data.createPairVec(vec, pairSize, vecSize);
 	std::vector<int>::const_iterator it = vec.begin();
+	std::cout << "After:  ";
 	for (;it < vec.end(); ++it) {
 		std::cout << *it << " ";
 	}

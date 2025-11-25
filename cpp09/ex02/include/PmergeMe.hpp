@@ -16,9 +16,12 @@ public:
 	~PmergeMe();
 	void	setVector(const std::vector<int>& vector);
 	void	setDeque(const std::deque<int>& deque);
-	std::vector<int>&	createPairVec(std::vector<int>& vec, size_t& pairSize, size_t& countPair);
 	void				swapPairs(std::vector<int>& vec, size_t leftStart, size_t rightStart, size_t size);
-	std::vector<size_t> generateJacobsthalSequence(size_t size);
+	std::vector<int>&	createPairVec(std::vector<int>& vec, size_t& pairSize, size_t& vecSize);
+	std::vector<size_t> generateJacobsthal(size_t n);
+	size_t				getJacobsthalNumber(size_t index);
+	void				insertWithJacobsthal(std::vector<int>& vec, std::vector<int>& pend, size_t& pairSize, size_t& incompletePair);
+	void				dichotomicSearch(std::vector<int>& vec, std::vector<int>& stragglers);
+	void				insertPendingElements(std::vector<int>& vec, size_t pairSize, size_t vecSize);
 };
-
 #endif
