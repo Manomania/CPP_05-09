@@ -18,8 +18,8 @@ public:
 	~PmergeMe();
 	void	setVector(const std::vector<int>& vector);
 	void	setDeque(const std::deque<int>& deque);
-	std::vector<size_t> generateJacobsthal(size_t n);
-	size_t				getJacobsthalNumber(size_t index);
+	static std::vector<size_t>	generateJacobsthal(size_t n);
+	static size_t				getJacobsthalNumber(size_t index);
 
 	template<typename Container>
 	void swapPairs(Container& container, typename Container::iterator leftStart, typename Container::iterator rightStart, size_t size);
