@@ -1,4 +1,4 @@
-#include "PmergeMe.hpp"
+#include "PmergeMe.tpp"
 #include <sstream>
 #include <iostream>
 #include <ctime>
@@ -28,6 +28,10 @@ int main(int argc, char** argv) {
 		vec.push_back(value);
 		deq.push_back(value);
 	}
+	if (ss.fail() && !ss.eof()) {
+		std::cout << "Error" << std::endl;
+		return (1);
+	}
 	data.setVector(vec);
 	data.setDeque(deq);
 
@@ -35,25 +39,25 @@ int main(int argc, char** argv) {
 	size_t pairSize = 1;
 
 	std::clock_t clockS = std::clock();
-	data.createPairCont(vec, pairSize, contSize);
+	data.createPairCont(data.getVector(), pairSize, contSize);
 	std::clock_t clockE = std::clock();
-	double timeV = static_cast<double>((clockE - clockS)) / CLOCKS_PER_SEC * 1000000;
+	double timeV = static_cast<double>(clockE - clockS);
 
 	clockS = std::clock();
-	data.createPairCont(deq, pairSize, contSize);
+	data.createPairCont(data.getDeque(), pairSize, contSize);
 	clockE = std::clock();
-	double timeD =  static_cast<double>((clockE - clockS)) / CLOCKS_PER_SEC * 1000000;
+	double timeD =  static_cast<double>(clockE - clockS);
 
-	std::vector<int>::const_iterator it = vec.begin();
 	std::cout << "Before: " << src << std::endl;
+	std::vector<int>::const_iterator it = data.getVector().begin();
 	std::cout << "After:  ";
-	for (;it < vec.end(); ++it) {
+	for (;it < data.getVector().end(); ++it) {
 		std::cout << *it;
-		if (it != vec.end() - 1)
+		if (it != data.getVector().end() - 1)
 			std::cout << " ";
 	}
 	std::cout << std::endl;
-	std::cout << "Time to process a range of " << vec.size() << " elements with std::vector: " << timeV << " μs" << std::endl;
-	std::cout << "Time to process a range of " << deq.size() << " elements with std::deque:  " << timeD << " μs" << std::endl;
+	std::cout << "Time to process a range of " << data.getVector().size() << " elements with std::vector: " << timeV << " μs" << std::endl;
+	std::cout << "Time to process a range of " << data.getDeque().size() << " elements with std::deque:  " << timeD << " μs" << std::endl;
 	return (0);
 }

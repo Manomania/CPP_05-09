@@ -1,13 +1,5 @@
 #include "PmergeMe.hpp"
 
-void	PmergeMe::setVector(const std::vector<int>& vector) {
-	_vector = vector;
-}
-
-void	PmergeMe::setDeque(const std::deque<int>& deque) {
-	_deque = deque;
-}
-
 PmergeMe::PmergeMe(): _vector(), _deque() {}
 
 PmergeMe::PmergeMe(const PmergeMe& copy): _vector(copy._vector), _deque(copy._deque) {}
@@ -21,6 +13,21 @@ PmergeMe& PmergeMe::operator=(const PmergeMe& other) {
 }
 
 PmergeMe::~PmergeMe() {}
+
+void	PmergeMe::setVector(const std::vector<int>& vector) {
+	_vector = vector;
+}
+
+void	PmergeMe::setDeque(const std::deque<int>& deque) {
+	_deque = deque;
+}
+
+std::vector<int>&	PmergeMe::getVector() {
+	return _vector;
+}
+std::deque<int>&	PmergeMe::getDeque() {
+	return _deque;
+}
 
 size_t PmergeMe::getJacobsthalNumber(size_t index) {
 	if (index == 0)
