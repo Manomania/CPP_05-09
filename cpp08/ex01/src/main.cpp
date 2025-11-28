@@ -23,8 +23,7 @@ void displayVector(const T& container) {
 	std::cout << std::endl;
 }
 
-int main()
-{
+int main() {
 	Span sp = Span(100);
 	std::cout << RED ULINE"\nTEST WITH 3"RESET << std::endl;
 	try {
