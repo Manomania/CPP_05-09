@@ -16,9 +16,6 @@ public:
 		return (*this);
 	};
 	~MutantStack() {};
-	// typedef pour T, typename pour dire que T va etre un type plutot qu'une variable
-	// std::stack<T> car on veut recuperer protected C qui provient d'un container
-	// ::container_type::iterator pour recuperer le member type
 	typedef typename std::stack<T>::container_type::iterator iterator;
 	typedef typename std::stack<T>::container_type::const_iterator const_iterator;
 	typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
