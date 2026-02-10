@@ -1,4 +1,3 @@
-#include <caca_conio.h>
 #include "ScalarConverter.hpp"
 
 int main(int argc, char **argv) {
